@@ -1,0 +1,10 @@
+[package]
+name = "libversion"
+version = "0.1.0"
+description = "libversion rewrite in rust"
+repository = "https://github.com/NixCheat/lib-version"
+keywords = ["version", "versioning", "rust", "library"]
+authors = ["LightDiscord 'Arnaud' <contact@lightdiscord.fr>", "DeltaEvo 'David' <dde-jesu@student.42.fr>"]
+
+[dependencies]
+
