@@ -20,6 +20,6 @@
  * THE SOFTWARE.
  */
 
-pub mod comparison;
-
-pub use comparison::*;
+pub fn public_function() {
+  println!("Test function");
+}
