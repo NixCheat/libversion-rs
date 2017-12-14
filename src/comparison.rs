@@ -20,6 +20,16 @@
  * THE SOFTWARE.
  */
 
-pub fn public_function() {
-  println!("Test function");
+use std::borrow::Cow;
+
+pub struct Version<'a> {
+  raw: Cow<'a, str>
+}
+
+impl<'a> Version<'a> {
+  pub fn new<S>(raw: S) -> Version<'a>
+    where S: Into<Cow<'a, str>>
+  {
+    Version { raw: raw.into() }
+  }
 }
