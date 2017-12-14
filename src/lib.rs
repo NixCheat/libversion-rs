@@ -21,7 +21,9 @@
  */
 
 use std::borrow::Cow;
+use std::cmp::Ordering;
 
+#[derive(Eq, PartialEq, PartialOrd)]
 struct Version<'a> {
   raw: Cow<'a, str>
 }
@@ -34,10 +36,8 @@ impl<'a> Version<'a> {
   }
 }
 
-impl<'a> PartialEq for Version<'a> {
-  fn eq(&self, other: &Version<'a>) -> bool {
-    self.raw == other.raw
+impl<'a> Ord for Version<'a> {
+  fn cmp(&self, other: &Version<'a>) -> Ordering {
+    Ordering::Equal
   }
 }
-
-impl<'a> Eq for Version<'a> {}
