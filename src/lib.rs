@@ -34,3 +34,10 @@ impl<'a> Version<'a> {
   }
 }
 
+impl<'a> PartialEq for Version<'a> {
+  fn eq(&self, other: &Version<'a>) -> bool {
+    self.raw == other.raw
+  }
+}
+
+impl<'a> Eq for Version<'a> {}
