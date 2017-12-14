@@ -20,6 +20,17 @@
  * THE SOFTWARE.
  */
 
-pub mod comparison;
+use std::borrow::Cow;
 
-pub use comparison::*;
+struct Version<'a> {
+  raw: Cow<'a, str>
+}
+
+impl<'a> Version<'a> {
+  pub fn new<S>(raw: S) -> Version<'a>
+    where S: Into<Cow<'a, str>>
+  {
+    Version { raw: raw.into() }
+  }
+}
+
