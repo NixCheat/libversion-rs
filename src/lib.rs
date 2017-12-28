@@ -31,13 +31,33 @@ struct Version<'a> {
 impl<'a> Version<'a> {
   pub fn new<S>(raw: S) -> Version<'a>
     where S: Into<Cow<'a, str>>
-  {
-    Version { raw: raw.into() }
-  }
+    {
+      Version { raw: raw.into() }
+    }
 }
 
 impl<'a> Ord for Version<'a> {
   fn cmp(&self, other: &Version<'a>) -> Ordering {
     Ordering::Equal
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn is_equal () {
+    assert_eq!(Ordering::Equal, Version::new("1.10").cmp(&Version::new("1.10")))
+  }
+
+  #[test]
+  fn is_less_than () {
+    assert_eq!(Ordering::Less, Version::new("1.9").cmp(&Version::new("1.10")))
+  }
+
+  #[test]
+  fn is_greater_than () {
+    assert_eq!(Ordering::Greater, Version::new("1.10").cmp(&Version::new("1.9")))
   }
 }
