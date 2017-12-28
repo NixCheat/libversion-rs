@@ -28,6 +28,10 @@ struct Version<'a> {
   raw: Cow<'a, str>
 }
 
+fn is_version_char (c: char) -> bool {
+  (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+}
+
 impl<'a> Version<'a> {
   pub fn new<S>(raw: S) -> Version<'a>
     where S: Into<Cow<'a, str>>
@@ -47,17 +51,28 @@ mod tests {
   use super::*;
 
   #[test]
-  fn is_equal () {
+  fn test_is_version_char () {
+    assert!(is_version_char('V'))
+  }
+
+  #[test]
+  #[should_panic]
+  fn test_is_not_version_char () {
+    assert!(is_version_char(':'))
+  }
+
+  #[test]
+  fn test_is_equal () {
     assert_eq!(Ordering::Equal, Version::new("1.10").cmp(&Version::new("1.10")))
   }
 
   #[test]
-  fn is_less_than () {
+  fn test_is_less_than () {
     assert_eq!(Ordering::Less, Version::new("1.9").cmp(&Version::new("1.10")))
   }
 
   #[test]
-  fn is_greater_than () {
+  fn test_is_greater_than () {
     assert_eq!(Ordering::Greater, Version::new("1.10").cmp(&Version::new("1.9")))
   }
 }
