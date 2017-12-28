@@ -28,16 +28,16 @@ struct Version<'a> {
   raw: Cow<'a, str>
 }
 
-fn is_version_char (c: char) -> bool {
-  (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-}
-
 impl<'a> Version<'a> {
   pub fn new<S>(raw: S) -> Version<'a>
     where S: Into<Cow<'a, str>>
     {
       Version { raw: raw.into() }
     }
+
+  pub fn is_version_char(c: char) -> bool {
+    (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+  }
 }
 
 impl<'a> Ord for Version<'a> {
@@ -52,13 +52,13 @@ mod tests {
 
   #[test]
   fn test_is_version_char () {
-    assert!(is_version_char('V'))
+    assert!(Version::is_version_char('V'))
   }
 
   #[test]
   #[should_panic]
   fn test_is_not_version_char () {
-    assert!(is_version_char(':'))
+    assert!(Version::is_version_char(':'))
   }
 
   #[test]
